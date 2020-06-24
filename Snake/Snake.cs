@@ -13,7 +13,6 @@ namespace Snake
         [STAThread]
         static void Main()
         {
-            //Bir Nevi Bilgisayar Bazında Kitliyoruz Burayı
             if (Mutex.WaitOne(TimeSpan.Zero, true))
             {
                 Application.EnableVisualStyles();
