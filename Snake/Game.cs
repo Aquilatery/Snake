@@ -7,10 +7,10 @@ namespace Snake
 {
     public partial class Game : Form
     {
-        int VWidth, Width2, VHeight, Height2, X, Y, EX, EY, FX, FX2, FY, FY2;
+        int VWidth, Width2, VHeight, Height2, X, Y, AX, AY, FX, FX2, FY, FY2;
         Direction Direct;
-        int[] Locations1 = new int[9999999];
-        int[] Locations2 = new int[9999999];
+        int[] Locations1 = new int[999999];
+        int[] Locations2 = new int[999999];
         int Queue, Queue2/*, Queue3*/, T1, T2 = 0;
 
         int Measurement = 5;
@@ -49,7 +49,7 @@ namespace Snake
             Up, Down, Left, Right
         }
 
-        private void Drawing(int EX, int EY)
+        private void Drawing(int AX, int AY)
         {
             Pen Pencil = new Pen(Color.Black, 5);
             Graphics Graph = null;
@@ -59,8 +59,8 @@ namespace Snake
             {
                 Graph.DrawRectangle(Pencil, new Rectangle(Locations1[Queue2], Locations2[Queue2], 10, 10));
                 Graph.FillRectangle(Colored, Locations1[Queue2], Locations2[Queue2], 10, 10);
-                if (EX == Locations1[Queue2] && EY == Locations2[Queue2])
-                    AppleEat(EX, EY);
+                if (AX == Locations1[Queue2] && AY == Locations2[Queue2])
+                    AppleEat(AX, AY);
                 Queue2++;
             }
             Pencil.Dispose();
@@ -72,7 +72,7 @@ namespace Snake
                 Queue2 = Queue;
         }
 
-        private void AppleEat(int EX, int EY)
+        private void AppleEat(int AX, int AY)
         {
             Apple = false;
             Measurement += Growth;
@@ -80,8 +80,8 @@ namespace Snake
             Graphics Graph = null;
             Graph = CreateGraphics();
             SolidBrush Colored = new SolidBrush(Color.White);
-            Graph.DrawRectangle(Pencil, new Rectangle(EX, EY, 10, 10));
-            Graph.FillRectangle(Colored, EX, EY, 10, 10);
+            Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
+            Graph.FillRectangle(Colored, AX, AY, 10, 10);
             Pencil.Dispose();
             Graph.Dispose();
             Colored.Dispose();
@@ -134,14 +134,14 @@ namespace Snake
                 if (Apple == false)
                 {
                     Apple = true;
-                    EX = Rastgele.Next(50, VWidth - 50);
-                    EY = Rastgele.Next(50, VHeight - 50);
+                    AX = Rastgele.Next(50, VWidth - 50);
+                    AY = Rastgele.Next(50, VHeight - 50);
                     Pen Pencil = new Pen(Color.Red, 5);
                     Graphics Graph = null;
                     Graph = CreateGraphics();
                     SolidBrush Colored = new SolidBrush(Color.Red);
-                    Graph.DrawRectangle(Pencil, new Rectangle(EX, EY, 10, 10));
-                    Graph.FillRectangle(Colored, EX, EY, 10, 10);
+                    Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
+                    Graph.FillRectangle(Colored, AX, AY, 10, 10);
                     Pencil.Dispose();
                     Graph.Dispose();
                     Colored.Dispose();
@@ -152,8 +152,8 @@ namespace Snake
                     Graphics Graph = null;
                     Graph = CreateGraphics();
                     SolidBrush Colored = new SolidBrush(Color.Red);
-                    Graph.DrawRectangle(Pencil, new Rectangle(EX, EY, 10, 10));
-                    Graph.FillRectangle(Colored, EX, EY, 10, 10);
+                    Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
+                    Graph.FillRectangle(Colored, AX, AY, 10, 10);
                     Pencil.Dispose();
                     Graph.Dispose();
                 }
@@ -174,14 +174,14 @@ namespace Snake
                     Locations1[Queue2] = 99999;
                     Locations2[Queue2] = 99999;
                 }
-                if (Width2 == EX && Height2 == EY)
-                    AppleEat(EX, EY);
+                if (Width2 == AX && Height2 == AY)
+                    AppleEat(AX, AY);
                 else
                 {
-                    FX = Width2 - EX;
-                    FY = Height2 - EY;
+                    FX = Width2 - AX;
+                    FY = Height2 - AY;
                     if ((Math.Abs(FX) >= 0 && Math.Abs(FX) <= 8) && (Math.Abs(FY) >= 0 && Math.Abs(FY) <= 8))
-                        AppleEat(EX, EY);
+                        AppleEat(AX, AY);
                 }
                 T2 += 50;
                 if (T2 >= 1000)
@@ -233,7 +233,9 @@ namespace Snake
         {
             e.IsInputKey = true;
             string Key = e.KeyCode.ToString();
-            if (Continue)
+            if (Key == "Escape" || Key == "escape")
+                Application.Exit();
+            else if (Continue)
             {
                 if (Key == "Right" || Key == "right")
                 {
