@@ -41,7 +41,7 @@ namespace Snake
             Direct = Direction.Right;
             Width = VWidth;
             Height = VHeight;
-            rectangleShape2.Location = new Point(Width2, Height2);
+            SnakeHead.Location = new Point(Width2, Height2);
         }
 
         private enum Direction
@@ -123,7 +123,7 @@ namespace Snake
                         Height2 += 10;
                 }
                 Drawing(X, Y);
-                rectangleShape2.Location = new Point(Width2, Height2);
+                SnakeHead.Location = new Point(Width2, Height2);
 
                 if (X != Width2 || Y != Height2)
                 {
@@ -189,10 +189,11 @@ namespace Snake
                     T1++;
                     T2 = 0;
                 }
-                label1.Text = "X = " + Width2 + " - FX = " + Math.Abs(FX) + "\n" + "Y = " + Height2 + " - FY = " + Math.Abs(FY);
-                label2.Text = "Measurement = " + Measurement + "\n" + "Time = " + T1 + "." + T2 + " Second";
-                label1.SendToBack();
-                label2.SendToBack();
+                InfoLabel.Text = "X = " + Width2 + " - FX = " + Math.Abs(FX) + "\n" + "Y = " + Height2 + " - FY = " + Math.Abs(FY);
+                StateLabel.Text = "Measurement = " + Measurement + "\n" + "Time = " + T1 + "." + T2 + " Second";
+                InfoLabel.SendToBack();
+                StateLabel.SendToBack();
+                SnakeHead.BringToFront();
             }
         }
 
