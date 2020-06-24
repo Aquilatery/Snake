@@ -196,39 +196,6 @@ namespace Snake
             }
         }
 
-        private void Game_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-            string Key = e.KeyChar.ToString();
-            if (Continue)
-            {
-                if (Key == "D" || Key == "d")
-                {
-                    if (Direct != Direction.Left && Direct != Direction.Right)
-                        Direct = Direction.Right;
-                }
-                else if (Key == "A" || Key == "a")
-                {
-                    if (Direct != Direction.Right && Direct != Direction.Left)
-                        Direct = Direction.Left;
-                }
-                else if (Key == "W" || Key == "w")
-                {
-                    if (Direct != Direction.Down && Direct != Direction.Up)
-                        Direct = Direction.Up;
-                }
-                else if (Key == "S" || Key == "s")
-                {
-                    if (Direct != Direction.Up && Direct != Direction.Down)
-                        Direct = Direction.Down;
-                }
-                else if (Key == "P" || Key == "p")
-                    Continue = !Continue;
-            }
-            else if (Key == "P" || Key == "p")
-                Continue = !Continue;
-        }
-
         private void Game_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             e.IsInputKey = true;
@@ -237,30 +204,30 @@ namespace Snake
                 Application.Exit();
             else if (Continue)
             {
-                if (Key == "Right" || Key == "right")
+                if (Key == "Right" || Key == "right" || Key == "D" || Key == "d")
                 {
                     if (Direct != Direction.Left && Direct != Direction.Right)
                         Direct = Direction.Right;
                 }
-                else if (Key == "Left" || Key == "left")
+                else if (Key == "Left" || Key == "left" || Key == "A" || Key == "a")
                 {
                     if (Direct != Direction.Right && Direct != Direction.Left)
                         Direct = Direction.Left;
                 }
-                else if (Key == "Up" || Key == "up")
+                else if (Key == "Up" || Key == "up" || Key == "W" || Key == "w")
                 {
                     if (Direct != Direction.Down && Direct != Direction.Up)
                         Direct = Direction.Up;
                 }
-                else if (Key == "Down" || Key == "down")
+                else if (Key == "Down" || Key == "down" || Key == "S" || Key == "s")
                 {
                     if (Direct != Direction.Up && Direct != Direction.Down)
                         Direct = Direction.Down;
                 }
-                else if (Key == "Pause" || Key == "pause")
+                else if (Key == "Pause" || Key == "pause" || Key == "P" || Key == "p")
                     Continue = !Continue;
             }
-            else if (Key == "Pause" || Key == "pause")
+            else if (Key == "Pause" || Key == "pause" || Key == "P" || Key == "p")
                 Continue = !Continue;
         }
 

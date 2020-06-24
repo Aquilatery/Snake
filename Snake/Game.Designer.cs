@@ -63,7 +63,6 @@
             this.rectangleShape2.Name = "rectangleShape2";
             this.rectangleShape2.SelectionColor = System.Drawing.Color.Black;
             this.rectangleShape2.Size = new System.Drawing.Size(10, 10);
-            this.rectangleShape2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Game_KeyPress);
             // 
             // Gaming
             // 
@@ -123,7 +122,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Snake";
             this.Load += new System.EventHandler(this.Game_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Game_KeyPress);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Game_PreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
