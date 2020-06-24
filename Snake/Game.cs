@@ -89,7 +89,7 @@ namespace Snake
 
         private void Gaming_Tick(object sender, EventArgs e)
         {
-            if (Continue == true)
+            if (Continue)
             {
                 X = Width2;
                 Y = Height2;
