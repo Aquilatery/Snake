@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Snake
         int[] Locations2 = new int[999999];
         int Queue, Queue2/*, Queue3*/, T1, T2, Measurement2 = 0;
 
-        int Measurement = 555;
+        int Measurement = 111;
         int Growth = 5;
         bool Apple = false;
         bool Continue = true;
@@ -33,7 +34,7 @@ namespace Snake
         private void Game_Load(object sender, EventArgs e)
         {
             Measurement2 = Measurement;
-            Game_Start();
+            Game_Restart();
         }
 
         private void Game_Start()
@@ -69,6 +70,7 @@ namespace Snake
             T2 = 0;
             Array.Clear(Locations1, 0, 999999);
             Array.Clear(Locations2, 0, 999999);
+            Direct = Direction.Right;
             Gaming.Enabled = true;
             Continue = true;
         }
@@ -78,7 +80,7 @@ namespace Snake
             Up, Down, Left, Right
         }
 
-        private void Drawing(int AX, int AY)
+        private void Tail_Draw(int AX, int AY)
         {
             Pen Pencil = new Pen(Color.Black, 5);
             Graphics Graph = null;
@@ -89,7 +91,7 @@ namespace Snake
                 Graph.DrawRectangle(Pencil, new Rectangle(Locations1[Queue2], Locations2[Queue2], 10, 10));
                 Graph.FillRectangle(Colored, Locations1[Queue2], Locations2[Queue2], 10, 10);
                 if (AX == Locations1[Queue2] && AY == Locations2[Queue2])
-                    AppleEat(AX, AY);
+                    Apple_Eat(AX, AY);
                 Queue2++;
             }
             Pencil.Dispose();
@@ -101,7 +103,7 @@ namespace Snake
                 Queue2 = Queue;
         }
 
-        private void AppleEat(int AX, int AY)
+        private void Apple_Eat(int AX, int AY)
         {
             Apple = false;
             Measurement += Growth;
@@ -116,118 +118,179 @@ namespace Snake
             Colored.Dispose();
         }
 
+        private void Apple_Control(object AC)
+        {
+            if (!Apple)
+            {
+                Apple = true;
+                AX = RNDM.Next(50, VWidth - 50);
+                AY = RNDM.Next(50, VHeight - 50);
+                Pen Pencil = new Pen(Color.Red, 5);
+                Graphics Graph = null;
+                Graph = CreateGraphics();
+                SolidBrush Colored = new SolidBrush(Color.Red);
+                Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
+                Graph.FillRectangle(Colored, AX, AY, 10, 10);
+                Pencil.Dispose();
+                Graph.Dispose();
+                Colored.Dispose();
+            }
+            else
+            {
+                Pen Pencil = new Pen(Color.Red, 5);
+                Graphics Graph = null;
+                Graph = CreateGraphics();
+                SolidBrush Colored = new SolidBrush(Color.Red);
+                Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
+                Graph.FillRectangle(Colored, AX, AY, 10, 10);
+                Pencil.Dispose();
+                Graph.Dispose();
+            }
+        }
+
+        private void Apple_Look(object AL)
+        {
+            if (Width2 == AX && Height2 == AY)
+                Apple_Eat(AX, AY);
+            else
+            {
+                FX = Width2 - AX;
+                FY = Height2 - AY;
+                if (Math.Abs(FX) >= 0 && Math.Abs(FX) <= 8 && Math.Abs(FY) >= 0 && Math.Abs(FY) <= 8)
+                    Apple_Eat(AX, AY);
+            }
+        }
+
+        private void Snake_Move()
+        {
+            X = Width2;
+            Y = Height2;
+
+            switch (Direct)
+            {
+                case Direction.Up:
+                    if (Height2 <= 1)
+                        Height2 = VHeight - 13;
+                    else
+                        Height2 -= 10;
+                    break;
+                case Direction.Down:
+                    if (Height2 >= VHeight - 12)
+                        Height2 = 2;
+                    else
+                        Height2 += 10;
+                    break;
+                case Direction.Left:
+                    if (Width2 <= 1)
+                        Width2 = VWidth - 13;
+                    else
+                        Width2 -= 10;
+                    break;
+                case Direction.Right:
+                    if (Width2 >= VWidth - 12)
+                        Width2 = 2;
+                    else
+                        Width2 += 10;
+                    break;
+            }
+            Tail_Draw(X, Y);
+            SnakeHead.Location = new Point(Width2, Height2);
+
+            if (X != Width2 || Y != Height2)
+            {
+                Locations1[Queue] = X;
+                Locations2[Queue] = Y;
+                Queue++;
+            }
+        }
+
+        private void Snake_Tail(object ST)
+        {
+            if (Queue >= Measurement)
+            {
+                Queue2 = Queue - Measurement;
+                Pen Pencil = new Pen(Color.White, 5);
+                Graphics Graph = null;
+                Graph = CreateGraphics();
+                SolidBrush Colored = new SolidBrush(Color.White);
+                Graph.DrawRectangle(Pencil, new Rectangle(Locations1[Queue2], Locations2[Queue2], 10, 10));
+                Graph.FillRectangle(Colored, Locations1[Queue2], Locations2[Queue2], 10, 10);
+                Pencil.Dispose();
+                Graph.Dispose();
+                Colored.Dispose();
+                /*Array.Clear(Locations1, 0, Queue2 + 1);
+                Array.Clear(Locations2, 0, Queue2 + 1);*/
+                Locations1[Queue2] = 999999;
+                Locations2[Queue2] = 999999;
+            }
+        }
+
+        private void Time_Plus(object TP)
+        {
+            T2 += 50;
+            if (T2 >= 1000)
+            {
+                T1++;
+                T2 = 0;
+            }
+        }
+
+        private void Label_Write(object LW)
+        {
+            InfoLabel.Text = "X = " + Width2 + " - FX = " + Math.Abs(FX) + "\n" + "Y = " + Height2 + " - FY = " + Math.Abs(FY);
+            StateLabel.Text = "Measurement = " + Measurement + "\n" + "Time = " + T1 + "." + T2 + " Second";
+
+            InfoLabel.SendToBack();
+            StateLabel.SendToBack();
+            SnakeHead.BringToFront();
+        }
+
+        private void Death_Control()
+        {
+            Parallel.For(0, Queue, i =>
+            {
+                FX2 = Locations1[i] - Width2;
+                FY2 = Locations2[i] - Height2;
+                if (Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8 && Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8)
+                {
+                    Gaming.Enabled = false;
+                    Continue = false;
+                    Game_Restart();
+                }
+            });
+
+            /*
+                Queue3 = 0;
+                while (Queue3 != Queue)
+                {
+                    FX2 = Locations1[Queue3] - Width2;
+                    FY2 = Locations2[Queue3] - Height2;
+                    if (Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8 && Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8)
+                    {
+                        Gaming.Enabled = false;
+                        Continue = false;
+                        Game_Restart();
+                    }
+                    Queue3++;
+                }
+            */
+        }
+
         private void Gaming_Tick(object sender, EventArgs e)
         {
             if (Continue)
             {
-                X = Width2;
-                Y = Height2;
+                Snake_Move();
 
-                switch (Direct)
-                {
-                    case Direction.Up:
-                        if (Height2 <= 1)
-                            Height2 = VHeight - 13;
-                        else
-                            Height2 -= 10;
-                        break;
-                    case Direction.Down:
-                        if (Height2 >= VHeight - 12)
-                            Height2 = 2;
-                        else
-                            Height2 += 10;
-                        break;
-                    case Direction.Left:
-                        if (Width2 <= 1)
-                            Width2 = VWidth - 13;
-                        else
-                            Width2 -= 10;
-                        break;
-                    case Direction.Right:
-                        if (Width2 >= VWidth - 12)
-                            Width2 = 2;
-                        else
-                            Width2 += 10;
-                        break;
-                }
-                Drawing(X, Y);
-                SnakeHead.Location = new Point(Width2, Height2);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Apple_Control));
 
-                if (X != Width2 || Y != Height2)
-                {
-                    Locations1[Queue] = X;
-                    Locations2[Queue] = Y;
-                    Queue++;
-                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Snake_Tail));
 
-                if (!Apple)
-                {
-                    Apple = true;
-                    AX = RNDM.Next(50, VWidth - 50);
-                    AY = RNDM.Next(50, VHeight - 50);
-                    Pen Pencil = new Pen(Color.Red, 5);
-                    Graphics Graph = null;
-                    Graph = CreateGraphics();
-                    SolidBrush Colored = new SolidBrush(Color.Red);
-                    Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
-                    Graph.FillRectangle(Colored, AX, AY, 10, 10);
-                    Pencil.Dispose();
-                    Graph.Dispose();
-                    Colored.Dispose();
-                }
-                else
-                {
-                    Pen Pencil = new Pen(Color.Red, 5);
-                    Graphics Graph = null;
-                    Graph = CreateGraphics();
-                    SolidBrush Colored = new SolidBrush(Color.Red);
-                    Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
-                    Graph.FillRectangle(Colored, AX, AY, 10, 10);
-                    Pencil.Dispose();
-                    Graph.Dispose();
-                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Apple_Look));
 
-                if (Queue >= Measurement)
-                {
-                    Queue2 = Queue - Measurement;
-                    Pen Pencil = new Pen(Color.White, 5);
-                    Graphics Graph = null;
-                    Graph = CreateGraphics();
-                    SolidBrush Colored = new SolidBrush(Color.White);
-                    Graph.DrawRectangle(Pencil, new Rectangle(Locations1[Queue2], Locations2[Queue2], 10, 10));
-                    Graph.FillRectangle(Colored, Locations1[Queue2], Locations2[Queue2], 10, 10);
-                    Pencil.Dispose();
-                    Graph.Dispose();
-                    Colored.Dispose();
-                    /*Array.Clear(Locations1, 0, Queue2 + 1);
-                    Array.Clear(Locations2, 0, Queue2 + 1);*/
-                    Locations1[Queue2] = 999999;
-                    Locations2[Queue2] = 999999;
-                }
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Time_Plus));
 
-                if (Width2 == AX && Height2 == AY)
-                    AppleEat(AX, AY);
-                else
-                {
-                    FX = Width2 - AX;
-                    FY = Height2 - AY;
-                    if (Math.Abs(FX) >= 0 && Math.Abs(FX) <= 8 && Math.Abs(FY) >= 0 && Math.Abs(FY) <= 8)
-                        AppleEat(AX, AY);
-                }
-
-                T2 += 50;
-                if (T2 >= 1000)
-                {
-                    T1++;
-                    T2 = 0;
-                }
-
-                InfoLabel.Text = "X = " + Width2 + " - FX = " + Math.Abs(FX) + "\n" + "Y = " + Height2 + " - FY = " + Math.Abs(FY);
-                StateLabel.Text = "Measurement = " + Measurement + "\n" + "Time = " + T1 + "." + T2 + " Second";
-                
-                InfoLabel.SendToBack();
-                StateLabel.SendToBack();
-                SnakeHead.BringToFront();
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Label_Write));
             }
         }
 
@@ -272,33 +335,7 @@ namespace Snake
             {
                 PauseLabel.Visible = false;
 
-                Parallel.For(0, Queue, i =>
-                {
-                    FX2 = Locations1[i] - Width2;
-                    FY2 = Locations2[i] - Height2;
-                    if (Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8 && Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8)
-                    {
-                        Gaming.Enabled = false;
-                        Continue = false;
-                        Game_Restart();
-                    }
-                });
-
-                /*
-                    Queue3 = 0;
-                    while (Queue3 != Queue)
-                    {
-                        FX2 = Locations1[Queue3] - Width2;
-                        FY2 = Locations2[Queue3] - Height2;
-                        if (Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8 && Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8)
-                        {
-                            Gaming.Enabled = false;
-                            Continue = false;
-                            Game_Restart();
-                        }
-                        Queue3++;
-                    }
-                */
+                Death_Control();
             }
             else
             {

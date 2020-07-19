@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Threading;
+using System.Reflection;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Snake
 {
     static class Snake
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Uygulamanın ana girdi noktası.
         /// </summary>
-        static Mutex Mutex = new Mutex(true, "{329958c6-1088-48bc-84e4-abd0dd07ea69}");
+
+        private static readonly Mutex Mutex = new Mutex(true, "{" + ((GuidAttribute)Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(GuidAttribute), false)).Value + "}");
+        
         [STAThread]
         static void Main()
         {
@@ -17,6 +21,7 @@ namespace Snake
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+                Control.CheckForIllegalCrossThreadCalls = false;
                 Application.Run(new Game());
                 Mutex.ReleaseMutex();
             }
