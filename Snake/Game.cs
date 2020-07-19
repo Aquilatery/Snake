@@ -11,9 +11,9 @@ namespace Snake
         Direction Direct;
         int[] Locations1 = new int[999999];
         int[] Locations2 = new int[999999];
-        int Queue, Queue2/*, Queue3*/, T1, T2 = 0;
+        int Queue, Queue2/*, Queue3*/, T1, T2, Measurement2 = 0;
 
-        int Measurement = 5;
+        int Measurement = 555;
         int Growth = 5;
         bool Apple = false;
         bool Continue = true;
@@ -32,6 +32,12 @@ namespace Snake
 
         private void Game_Load(object sender, EventArgs e)
         {
+            Measurement2 = Measurement;
+            Game_Start();
+        }
+
+        private void Game_Start()
+        {
             VWidth = SystemInformation.PrimaryMonitorSize.Width;
             VHeight = SystemInformation.PrimaryMonitorSize.Height;
             Width2 = VWidth / 2;
@@ -42,6 +48,29 @@ namespace Snake
             Width = VWidth;
             Height = VHeight;
             SnakeHead.Location = new Point(Width2, Height2);
+        }
+
+        private void Game_Restart()
+        {
+            Pen Pencil = new Pen(Color.White, 9999);
+            Graphics Graph = null;
+            Graph = CreateGraphics();
+            SolidBrush Colored = new SolidBrush(Color.White);
+            Graph.DrawRectangle(Pencil, new Rectangle(VWidth / 2, VHeight / 2, 9999, 9999));
+            Graph.FillRectangle(Colored, VWidth / 2, VHeight / 2, 9999, 9999);
+            Pencil.Dispose();
+            Graph.Dispose();
+            Colored.Dispose();
+            Game_Start();
+            Measurement = Measurement2;
+            Queue = 0;
+            Queue2 = 0;
+            T1 = 0;
+            T2 = 0;
+            Array.Clear(Locations1, 0, 999999);
+            Array.Clear(Locations2, 0, 999999);
+            Gaming.Enabled = true;
+            Continue = true;
         }
 
         private enum Direction
@@ -172,8 +201,8 @@ namespace Snake
                     Colored.Dispose();
                     /*Array.Clear(Locations1, 0, Queue2 + 1);
                     Array.Clear(Locations2, 0, Queue2 + 1);*/
-                    Locations1[Queue2] = 99999;
-                    Locations2[Queue2] = 99999;
+                    Locations1[Queue2] = 999999;
+                    Locations2[Queue2] = 999999;
                 }
 
                 if (Width2 == AX && Height2 == AY)
@@ -182,7 +211,7 @@ namespace Snake
                 {
                     FX = Width2 - AX;
                     FY = Height2 - AY;
-                    if ((Math.Abs(FX) >= 0 && Math.Abs(FX) <= 8) && (Math.Abs(FY) >= 0 && Math.Abs(FY) <= 8))
+                    if (Math.Abs(FX) >= 0 && Math.Abs(FX) <= 8 && Math.Abs(FY) >= 0 && Math.Abs(FY) <= 8)
                         AppleEat(AX, AY);
                 }
 
@@ -241,6 +270,8 @@ namespace Snake
         {
             if (Continue)
             {
+                PauseLabel.Visible = false;
+
                 Parallel.For(0, Queue, i =>
                 {
                     FX2 = Locations1[i] - Width2;
@@ -249,7 +280,7 @@ namespace Snake
                     {
                         Gaming.Enabled = false;
                         Continue = false;
-                        Application.Restart();
+                        Game_Restart();
                     }
                 });
 
@@ -263,11 +294,16 @@ namespace Snake
                         {
                             Gaming.Enabled = false;
                             Continue = false;
-                            Application.Restart();
+                            Game_Restart();
                         }
                         Queue3++;
                     }
                 */
+            }
+            else
+            {
+                PauseLabel.Visible = true;
+                PauseLabel.BringToFront();
             }
         }
     }

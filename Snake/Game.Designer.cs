@@ -36,6 +36,7 @@
             this.InfoLabel = new System.Windows.Forms.Label();
             this.Death = new System.Windows.Forms.Timer(this.components);
             this.StateLabel = new System.Windows.Forms.Label();
+            this.PauseLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // shapeContainer1
@@ -79,7 +80,7 @@
             this.InfoLabel.Location = new System.Drawing.Point(9, 9);
             this.InfoLabel.Margin = new System.Windows.Forms.Padding(0);
             this.InfoLabel.Name = "InfoLabel";
-            this.InfoLabel.Size = new System.Drawing.Size(70, 26);
+            this.InfoLabel.Size = new System.Drawing.Size(101, 26);
             this.InfoLabel.TabIndex = 1;
             this.InfoLabel.Text = "InfoLabel";
             // 
@@ -99,9 +100,23 @@
             this.StateLabel.Location = new System.Drawing.Point(9, 200);
             this.StateLabel.Margin = new System.Windows.Forms.Padding(0);
             this.StateLabel.Name = "StateLabel";
-            this.StateLabel.Size = new System.Drawing.Size(70, 26);
+            this.StateLabel.Size = new System.Drawing.Size(116, 26);
             this.StateLabel.TabIndex = 2;
             this.StateLabel.Text = "StateLabel";
+            // 
+            // PauseLabel
+            // 
+            this.PauseLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PauseLabel.AutoSize = true;
+            this.PauseLabel.BackColor = System.Drawing.Color.Transparent;
+            this.PauseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.5F);
+            this.PauseLabel.Location = new System.Drawing.Point(187, 9);
+            this.PauseLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PauseLabel.Name = "PauseLabel";
+            this.PauseLabel.Size = new System.Drawing.Size(88, 26);
+            this.PauseLabel.TabIndex = 3;
+            this.PauseLabel.Text = "PAUSE";
+            this.PauseLabel.Visible = false;
             // 
             // Game
             // 
@@ -110,6 +125,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.ControlBox = false;
+            this.Controls.Add(this.PauseLabel);
             this.Controls.Add(this.StateLabel);
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.shapeContainer1);
@@ -136,5 +152,6 @@
         private System.Windows.Forms.Label InfoLabel;
         private System.Windows.Forms.Timer Death;
         private System.Windows.Forms.Label StateLabel;
+        private System.Windows.Forms.Label PauseLabel;
     }
 }
