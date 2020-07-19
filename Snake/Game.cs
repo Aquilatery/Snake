@@ -14,7 +14,7 @@ namespace Snake
         int[] Locations2 = new int[999999];
         int Queue, Queue2/*, Queue3*/, T1, T2, Measurement2 = 0;
 
-        int Measurement = 111;
+        int Measurement = 5;
         int Growth = 5;
         bool Apple = false;
         bool Continue = true;
@@ -37,7 +37,7 @@ namespace Snake
             Game_Restart();
         }
 
-        private void Game_Start()
+        private void Game_Start(object GS)
         {
             VWidth = SystemInformation.PrimaryMonitorSize.Width;
             VHeight = SystemInformation.PrimaryMonitorSize.Height;
@@ -62,7 +62,7 @@ namespace Snake
             Pencil.Dispose();
             Graph.Dispose();
             Colored.Dispose();
-            Game_Start();
+            ThreadPool.QueueUserWorkItem(new WaitCallback(Game_Start));
             Measurement = Measurement2;
             Queue = 0;
             Queue2 = 0;
