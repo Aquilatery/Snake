@@ -17,7 +17,7 @@ namespace Snake
         int Growth = 5;
         bool Apple = false;
         bool Continue = true;
-        Random Rastgele = new Random();
+        Random RNDM = new Random();
 
         /*
             Array.Clear(Locations, 0, Locations.Length);
@@ -131,11 +131,12 @@ namespace Snake
                     Locations2[Queue] = Y;
                     Queue++;
                 }
-                if (Apple == false)
+
+                if (!Apple)
                 {
                     Apple = true;
-                    AX = Rastgele.Next(50, VWidth - 50);
-                    AY = Rastgele.Next(50, VHeight - 50);
+                    AX = RNDM.Next(50, VWidth - 50);
+                    AY = RNDM.Next(50, VHeight - 50);
                     Pen Pencil = new Pen(Color.Red, 5);
                     Graphics Graph = null;
                     Graph = CreateGraphics();
@@ -157,6 +158,7 @@ namespace Snake
                     Pencil.Dispose();
                     Graph.Dispose();
                 }
+
                 if (Queue >= Measurement)
                 {
                     Queue2 = Queue - Measurement;
@@ -174,6 +176,7 @@ namespace Snake
                     Locations1[Queue2] = 99999;
                     Locations2[Queue2] = 99999;
                 }
+
                 if (Width2 == AX && Height2 == AY)
                     AppleEat(AX, AY);
                 else
@@ -183,14 +186,17 @@ namespace Snake
                     if ((Math.Abs(FX) >= 0 && Math.Abs(FX) <= 8) && (Math.Abs(FY) >= 0 && Math.Abs(FY) <= 8))
                         AppleEat(AX, AY);
                 }
+
                 T2 += 50;
                 if (T2 >= 1000)
                 {
                     T1++;
                     T2 = 0;
                 }
+
                 InfoLabel.Text = "X = " + Width2 + " - FX = " + Math.Abs(FX) + "\n" + "Y = " + Height2 + " - FY = " + Math.Abs(FY);
                 StateLabel.Text = "Measurement = " + Measurement + "\n" + "Time = " + T1 + "." + T2 + " Second";
+                
                 InfoLabel.SendToBack();
                 StateLabel.SendToBack();
                 SnakeHead.BringToFront();
@@ -240,7 +246,7 @@ namespace Snake
                 {
                     FX2 = Locations1[i] - Width2;
                     FY2 = Locations2[i] - Height2;
-                    if ((Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8) && (Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8))
+                    if (Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8 && Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8)
                     {
                         Gaming.Enabled = false;
                         Continue = false;
@@ -249,18 +255,20 @@ namespace Snake
                 });
 
                 /*
-                Queue3 = 0;
-                while (Queue3 != Queue)
-                {
-                    FX2 = Locations1[Queue3] - Width2;
-                    FY2 = Locations2[Queue3] - Height2;
-                    if ((Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8) && (Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8))
+                    Queue3 = 0;
+                    while (Queue3 != Queue)
                     {
-                        Continue = false;
-                        Application.Restart();
+                        FX2 = Locations1[Queue3] - Width2;
+                        FY2 = Locations2[Queue3] - Height2;
+                        if (Math.Abs(FX2) >= 0 && Math.Abs(FX2) <= 8 && Math.Abs(FY2) >= 0 && Math.Abs(FY2) <= 8)
+                        {
+                            Gaming.Enabled = false;
+                            Continue = false;
+                            Application.Restart();
+                        }
+                        Queue3++;
                     }
-                    Queue3++;
-                }*/
+                */
             }
         }
     }
