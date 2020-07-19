@@ -94,33 +94,32 @@ namespace Snake
                 X = Width2;
                 Y = Height2;
 
-                if (Direct == Direction.Right)
+                switch (Direct)
                 {
-                    if (Width2 >= VWidth - 12)
-                        Width2 = 2;
-                    else
-                        Width2 += 10;
-                }
-                else if (Direct == Direction.Left)
-                {
-                    if (Width2 <= 1)
-                        Width2 = VWidth - 13;
-                    else
-                        Width2 -= 10;
-                }
-                else if (Direct == Direction.Up)
-                {
-                    if (Height2 <= 1)
-                        Height2 = VHeight - 13;
-                    else
-                        Height2 -= 10;
-                }
-                else if (Direct == Direction.Down)
-                {
-                    if (Height2 >= VHeight - 12)
-                        Height2 = 2;
-                    else
-                        Height2 += 10;
+                    case Direction.Up:
+                        if (Height2 <= 1)
+                            Height2 = VHeight - 13;
+                        else
+                            Height2 -= 10;
+                        break;
+                    case Direction.Down:
+                        if (Height2 >= VHeight - 12)
+                            Height2 = 2;
+                        else
+                            Height2 += 10;
+                        break;
+                    case Direction.Left:
+                        if (Width2 <= 1)
+                            Width2 = VWidth - 13;
+                        else
+                            Width2 -= 10;
+                        break;
+                    case Direction.Right:
+                        if (Width2 >= VWidth - 12)
+                            Width2 = 2;
+                        else
+                            Width2 += 10;
+                        break;
                 }
                 Drawing(X, Y);
                 SnakeHead.Location = new Point(Width2, Height2);
