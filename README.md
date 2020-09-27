@@ -2,7 +2,7 @@
   <p>Snake v1.5</p>
   <p>Visual Studio 2019</p>
   <p>.NET Framework 4.8 (Minimum 4.0)</p>
-  <img src="https://www.photo.herominyum.com/resimler/2020/06/24/dJm1.png" />
-  <img src="https://www.photo.herominyum.com/resimler/2020/06/24/dfMn.png" />
-  <img src="https://www.photo.herominyum.com/resimler/2020/06/24/dYlv.png" />
-  <img src="https://www.photo.herominyum.com/resimler/2020/06/24/dz8r.png" />
+  <img src="https://raw.githubusercontent.com/Taiizor/Snake/master/.screenshots/UI_1.png" />
+  <img src="https://raw.githubusercontent.com/Taiizor/Snake/master/.screenshots/UI_2.png" />
+  <img src="https://raw.githubusercontent.com/Taiizor/Snake/master/.screenshots/UI_3.png" />
+  <img src="https://raw.githubusercontent.com/Taiizor/Snake/master/.screenshots/UI_4.png" />
