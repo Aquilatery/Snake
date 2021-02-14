@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Threading;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Snake
 {
-    static class Snake
+    internal static class Snake
     {
         /// <summary>
         /// Uygulamanın ana girdi noktası.
         /// </summary>
 
         private static readonly Mutex Mutex = new Mutex(true, "{" + ((GuidAttribute)Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(GuidAttribute), false)).Value + "}");
-        
+
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             if (Mutex.WaitOne(TimeSpan.Zero, true))
             {
