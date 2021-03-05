@@ -1,0 +1,53 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Snake/1.0.0": {
+        "dependencies": {
+          "Microsoft.VisualBasic": "10.4.0-preview.18571.3",
+          "Microsoft.VisualBasic.PowerPacks.Vs": "10.0.0.0"
+        },
+        "runtime": {
+          "Snake.dll": {}
+        }
+      },
+      "Microsoft.VisualBasic/10.4.0-preview.18571.3": {},
+      "Microsoft.VisualBasic.PowerPacks.Vs/10.0.0.0": {
+        "runtime": {
+          "Microsoft.VisualBasic.PowerPacks.Vs.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "11.0.50727.1"
+          }
+        },
+        "resources": {
+          "tr/Microsoft.VisualBasic.PowerPacks.Vs.resources.dll": {
+            "locale": "tr"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Snake/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.VisualBasic/10.4.0-preview.18571.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9o+ngDFh/65nEtLaMJ4I7nsMFqTYStbMzdp0gX0ytOFs77WrCNMoEEt72fRHvDbcPXmFD/+UF6LOPqEdcU//0Q==",
+      "path": "microsoft.visualbasic/10.4.0-preview.18571.3",
+      "hashPath": "microsoft.visualbasic.10.4.0-preview.18571.3.nupkg.sha512"
+    },
+    "Microsoft.VisualBasic.PowerPacks.Vs/10.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

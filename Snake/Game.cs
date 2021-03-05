@@ -17,7 +17,7 @@ namespace Snake
         private readonly int Growth = 5;
         private bool Apple = false;
         private bool Continue = true;
-        private readonly Random RNDM = new Random();
+        private readonly Random RNDM = new();
 
         /*
             Array.Clear(Locations, 0, Locations.Length);
@@ -52,10 +52,10 @@ namespace Snake
 
         private void Game_Restart()
         {
-            Pen Pencil = new Pen(Color.White, 9999);
+            Pen Pencil = new(Color.White, 9999);
             Graphics Graph = null;
             Graph = CreateGraphics();
-            SolidBrush Colored = new SolidBrush(Color.White);
+            SolidBrush Colored = new(Color.White);
             Graph.DrawRectangle(Pencil, new Rectangle(VWidth / 2, VHeight / 2, 9999, 9999));
             Graph.FillRectangle(Colored, VWidth / 2, VHeight / 2, 9999, 9999);
             Pencil.Dispose();
@@ -81,9 +81,9 @@ namespace Snake
 
         private void Tail_Draw(int AX, int AY)
         {
-            Pen Pencil = new Pen(Color.Black, 5);
+            Pen Pencil = new(Color.Black, 5);
             Graphics Graph = CreateGraphics();
-            SolidBrush Colored = new SolidBrush(Color.Black);
+            SolidBrush Colored = new(Color.Black);
             while (Queue2 != Queue)
             {
                 Graph.DrawRectangle(Pencil, new Rectangle(Locations1[Queue2], Locations2[Queue2], 10, 10));
@@ -112,9 +112,9 @@ namespace Snake
         {
             Apple = false;
             Measurement += Growth;
-            Pen Pencil = new Pen(Color.White, 5);
+            Pen Pencil = new(Color.White, 5);
             Graphics Graph = CreateGraphics();
-            SolidBrush Colored = new SolidBrush(Color.White);
+            SolidBrush Colored = new(Color.White);
             Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
             Graph.FillRectangle(Colored, AX, AY, 10, 10);
             Pencil.Dispose();
@@ -129,9 +129,9 @@ namespace Snake
                 Apple = true;
                 AX = RNDM.Next(50, VWidth - 50);
                 AY = RNDM.Next(50, VHeight - 50);
-                Pen Pencil = new Pen(Color.Red, 5);
+                Pen Pencil = new(Color.Red, 5);
                 Graphics Graph = CreateGraphics();
-                SolidBrush Colored = new SolidBrush(Color.Red);
+                SolidBrush Colored = new(Color.Red);
                 Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
                 Graph.FillRectangle(Colored, AX, AY, 10, 10);
                 Pencil.Dispose();
@@ -140,9 +140,9 @@ namespace Snake
             }
             else
             {
-                Pen Pencil = new Pen(Color.Red, 5);
+                Pen Pencil = new(Color.Red, 5);
                 Graphics Graph = CreateGraphics();
-                SolidBrush Colored = new SolidBrush(Color.Red);
+                SolidBrush Colored = new(Color.Red);
                 Graph.DrawRectangle(Pencil, new Rectangle(AX, AY, 10, 10));
                 Graph.FillRectangle(Colored, AX, AY, 10, 10);
                 Pencil.Dispose();
@@ -235,9 +235,9 @@ namespace Snake
             if (Queue >= Measurement)
             {
                 Queue2 = Queue - Measurement;
-                Pen Pencil = new Pen(Color.White, 5);
+                Pen Pencil = new(Color.White, 5);
                 Graphics Graph = CreateGraphics();
-                SolidBrush Colored = new SolidBrush(Color.White);
+                SolidBrush Colored = new(Color.White);
                 Graph.DrawRectangle(Pencil, new Rectangle(Locations1[Queue2], Locations2[Queue2], 10, 10));
                 Graph.FillRectangle(Colored, Locations1[Queue2], Locations2[Queue2], 10, 10);
                 Pencil.Dispose();
