@@ -14,6 +14,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\Stumbleupon.ico</ApplicationIcon>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -23,26 +24,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Stumbleupon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Swap.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Swap.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Fuse.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Fuse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Squiggly.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Squiggly.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Resources\Squiggly.ico" />
     <Resource Include="Resources\Stumbleupon.ico" />
   </ItemGroup>
   <ItemGroup>

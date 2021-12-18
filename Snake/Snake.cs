@@ -12,7 +12,7 @@ namespace Snake
         /// Uygulamanın ana girdi noktası.
         /// </summary>
 
-        private static readonly Mutex Mutex = new(true, "{" + ((GuidAttribute)Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(GuidAttribute), false)).Value + "}");
+        private static readonly Mutex Mutex = new(true, ((GuidAttribute)Attribute.GetCustomAttribute(Assembly.GetExecutingAssembly(), typeof(GuidAttribute), false)).Value);
 
         [STAThread]
         private static void Main()
@@ -26,6 +26,7 @@ namespace Snake
                 Application.SetCompatibleTextRenderingDefault(false);
                 Control.CheckForIllegalCrossThreadCalls = false;
                 Application.Run(new Game());
+                Application.DoEvents();
                 Mutex.ReleaseMutex();
             }
         }
